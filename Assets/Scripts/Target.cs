@@ -1,19 +1,28 @@
 using UnityEngine;
-using System.Linq;
 
 public class Target : MonoBehaviour
 {
-    private IMovementPattern _pattern;
+    private IMovementPattern movementPattern;
 
     void Awake()
     {
-        _pattern = GetComponent<IMovementPattern>();
-        if (_pattern == null)
+        movementPattern = GetComponent<IMovementPattern>();
+        if (movementPattern == null)
             Debug.LogWarning($"{name} without IMovementPattern!");
+    }
+
+    void OnEnable()
+    {
+        TargetManager.Instance?.Register();
+    }
+
+    void OnDisable()
+    {
+        TargetManager.Instance?.Unregister();
     }
 
     void Update()
     {
-        _pattern?.Move(transform);
+        movementPattern?.Move(transform);
     }
 }
