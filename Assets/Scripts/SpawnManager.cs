@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class SpawnManager : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] private int initialTargetCount = 5;
     [SerializeField] private float maxTargetHeight = 20f;
+    [SerializeField] private List<GameObject> targetPrefabs;
+
 
     public void SpawnInitialTargets()
     {
@@ -18,8 +21,9 @@ public class SpawnManager : MonoBehaviour
 
     public GameObject SpawnOne()
     {
+        var prefab = targetPrefabs[Random.Range(0, targetPrefabs.Count)];
         Vector3 pos = GetRandomPosition();
-        var go = Instantiate(targetPrefab, pos, Quaternion.identity);
+        var go = Instantiate(prefab, pos, Quaternion.identity);
         Debug.Log($"Spawned target at {pos}");
         return go;
     }
