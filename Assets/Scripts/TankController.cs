@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class TankController : MonoBehaviour
 {
-    [SerializeField] Transform bodyTransform;
+    [SerializeField] Transform chassis;
     IDrive drive;
 
     void Awake()
     {
         drive = GetComponent<IDrive>();
     }
-
+    
     void Update()
     {
         float moveInput = Input.GetAxis("Vertical");
         float turnInput = Input.GetAxis("Horizontal");
-        drive.Drive(bodyTransform, moveInput, turnInput);
+        drive.Drive(chassis, moveInput, turnInput);
     }
 }
