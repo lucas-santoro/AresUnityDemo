@@ -1,10 +1,12 @@
 using UnityEngine;
 using System;
+using System.Diagnostics;
 
 public class TargetManager : MonoBehaviour
 {
     public static TargetManager Instance { get; private set; }
     public event Action<int> OnAliveCountChanged;
+    public event Action OnAllTargetsKilled;
 
     private int aliveCount;
 
@@ -24,6 +26,11 @@ public class TargetManager : MonoBehaviour
     {
         aliveCount--;
         OnAliveCountChanged?.Invoke(aliveCount);
+
+        if (aliveCount <= 0)
+        {
+            OnAllTargetsKilled?.Invoke();
+        }
     }
 
     public int GetAliveCount()

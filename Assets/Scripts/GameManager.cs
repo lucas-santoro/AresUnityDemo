@@ -11,17 +11,23 @@ public class GameManager : MonoBehaviour
         spawnManager.SpawnInitialTargets();
 
         timerService.OnTimerFinished += HandleGameOver;
+        TargetManager.Instance.OnAllTargetsKilled += HandleGameOver;
+
         timerService.StartTimer();
     }
 
     private void HandleGameOver()
     {
         Debug.Log("Game Over");
+        timerService.StopTimer();
     }
 
     private void OnDestroy()
     {
         if (timerService != null)
             timerService.OnTimerFinished -= HandleGameOver;
+
+        if (TargetManager.Instance != null)
+            TargetManager.Instance.OnAllTargetsKilled -= HandleGameOver;
     }
 }

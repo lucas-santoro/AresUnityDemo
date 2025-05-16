@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class TimerUI : MonoBehaviour
@@ -7,16 +6,18 @@ public class TimerUI : MonoBehaviour
     [SerializeField] private TimerService timerService;
     [SerializeField] private TextMeshProUGUI timerText;
 
-    private void OnEnable()
+    private void Start()
     {
         timerService.OnTimerTick += UpdateDisplay;
         timerService.OnTimerFinished += ShowGameOver;
+        TargetManager.Instance.OnAllTargetsKilled += ShowGameOver;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         timerService.OnTimerTick -= UpdateDisplay;
         timerService.OnTimerFinished -= ShowGameOver;
+        TargetManager.Instance.OnAllTargetsKilled -= ShowGameOver;
     }
 
     private void UpdateDisplay(float remaining)
