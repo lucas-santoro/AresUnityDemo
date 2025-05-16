@@ -3,15 +3,12 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [Header("References (assign in Inspector)")]
     [SerializeField] private GameObject ground;
-    [SerializeField] private GameObject targetPrefab;
 
-    [Header("Spawn Settings")]
+    [Header("Spawn settings")]
     [SerializeField] private int initialTargetCount = 5;
     [SerializeField] private float maxTargetHeight = 20f;
     [SerializeField] private List<GameObject> targetPrefabs;
-
 
     public void SpawnInitialTargets()
     {
