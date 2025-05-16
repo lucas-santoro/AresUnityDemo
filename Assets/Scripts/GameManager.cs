@@ -2,32 +2,46 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Service References (assign in Inspector)")]
+    [SerializeField] private GameObject groundPrefab;
+    [SerializeField] private Vector3 groundPosition;
     [SerializeField] private SpawnManager spawnManager;
+    [SerializeField] private PlayerSpawner playerSpawner;
     [SerializeField] private TimerService timerService;
 
-    private void Start()
-    {
-        spawnManager.SpawnInitialTargets();
+    private CombinedGameStarter gameStarter;
 
+    void Awake()
+    {
+        gameStarter = GetComponent<CombinedGameStarter>();
+        gameStarter.OnGameStart += InitializeGame;
+    }
+
+    void OnDestroy()
+    {
+        gameStarter.OnGameStart -= InitializeGame;
+        timerService.OnTimerFinished -= HandleGameOver;
+        TargetManager.Instance.OnAllTargetsKilled -= HandleGameOver;
+    }
+
+    void InitializeGame()
+    {
+        SpawnGround();
+        playerSpawner.SpawnPlayer();
+        spawnManager.SpawnInitialTargets();
         timerService.OnTimerFinished += HandleGameOver;
         TargetManager.Instance.OnAllTargetsKilled += HandleGameOver;
-
         timerService.StartTimer();
     }
 
-    private void HandleGameOver()
+    void SpawnGround()
+    {
+        if (groundPrefab == null) return;
+        Instantiate(groundPrefab, groundPosition, Quaternion.identity);
+    }
+
+    void HandleGameOver()
     {
         Debug.Log("Game Over");
         timerService.StopTimer();
-    }
-
-    private void OnDestroy()
-    {
-        if (timerService != null)
-            timerService.OnTimerFinished -= HandleGameOver;
-
-        if (TargetManager.Instance != null)
-            TargetManager.Instance.OnAllTargetsKilled -= HandleGameOver;
     }
 }
