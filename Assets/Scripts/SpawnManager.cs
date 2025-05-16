@@ -24,7 +24,6 @@ public class SpawnManager : MonoBehaviour
         var prefab = targetPrefabs[Random.Range(0, targetPrefabs.Count)];
         Vector3 pos = GetRandomPosition();
         var go = Instantiate(prefab, pos, Quaternion.identity);
-        Debug.Log($"Spawned target at {pos}");
         return go;
     }
 
@@ -32,7 +31,6 @@ public class SpawnManager : MonoBehaviour
     {
         if (ground == null)
         {
-            Debug.LogError("SpawnManager: Ground reference not set");
             return Vector3.zero;
         }
         Renderer renderer = ground.GetComponent<Renderer>();
