@@ -30,7 +30,7 @@ public class TurretController : MonoBehaviour
 
         float dy = Input.GetAxis("Mouse Y");
         pitch -= dy * pitchSpeed * Time.deltaTime;
-        pitch = Mathf.Clamp(pitch, 30f, 100f);
+        pitch = Mathf.Clamp(pitch, -60f, 10f);
         barrel.localRotation = Quaternion.Euler(pitch, 0f, 0f);
     }
 }
