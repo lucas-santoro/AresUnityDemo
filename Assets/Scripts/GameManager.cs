@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     void InitializeGame()
     {
+        InputManager.Instance.EnableInput();
         SpawnGround();
         playerSpawner.SpawnPlayer();
         spawnManager.SpawnInitialTargets();
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     void HandleGameOver()
     {
+        InputManager.Instance.DisableInput();
         Debug.Log("Game Over");
         timerService.StopTimer();
     }
