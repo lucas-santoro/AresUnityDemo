@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8238231125649055445}
   - component: {fileID: 3231704781440103764}
   m_Layer: 0
-  m_Name: SpawnArea
+  m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
