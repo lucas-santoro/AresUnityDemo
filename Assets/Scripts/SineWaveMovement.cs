@@ -28,11 +28,6 @@ public class SineWaveMovement : MonoBehaviour, IMovementPattern
 
         origin = transform.position;
         startTime = Time.time;
-
-        Debug.Log(
-            $"[SineWave] speed={speed:F2}, amp={amplitude:F2}, freq={frequency:F2}, " +
-            $"dist={maxDistance:F2}, yaw={yaw * Mathf.Rad2Deg:F0}"
-        );
     }
 
     public void Move(Transform t)
