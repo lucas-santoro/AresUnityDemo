@@ -23,6 +23,7 @@ public class TurretController : MonoBehaviour
 
     void LateUpdate()
     {
+        if (!InputManager.Instance.InputEnabled) return;
         transform.position = chassis.position + chassis.TransformDirection(localOffset);
 
         float dx = Input.GetAxis("Mouse X");

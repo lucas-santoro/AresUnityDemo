@@ -4,8 +4,6 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject ground;
-
-    [Header("Spawn settings")]
     [SerializeField] private int initialTargetCount = 5;
     [SerializeField] private float maxTargetHeight = 20f;
     [SerializeField] private List<GameObject> targetPrefabs;
