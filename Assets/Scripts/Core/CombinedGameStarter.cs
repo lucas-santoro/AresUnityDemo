@@ -28,8 +28,8 @@ public class CombinedGameStarter : MonoBehaviour, IGameStarter
 
     void Update()
     {
-        if (!IsStarted && Input.anyKeyDown)
-            TriggerStart();
+        // if (!IsStarted && Input.anyKeyDown)
+        //     TriggerStart();
     }
 
     public void OnNativeGameStart()

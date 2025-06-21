@@ -8,9 +8,9 @@ public class TurretShooter : MonoBehaviour, IShooter
 
     void Update()
     {
-        if (!InputManager.Instance.InputEnabled) return;
-        if (Input.GetMouseButtonDown(0))
-            Fire();
+        // if (!InputManager.Instance.InputEnabled) return;
+        // if (Input.GetMouseButtonDown(0))
+        //     Fire();
     }
 
     public void Fire()

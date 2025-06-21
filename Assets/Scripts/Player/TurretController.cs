@@ -23,15 +23,15 @@ public class TurretController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!InputManager.Instance.InputEnabled) return;
-        transform.position = chassis.position + chassis.TransformDirection(localOffset);
+        // if (!InputManager.Instance.InputEnabled) return;
+        // transform.position = chassis.position + chassis.TransformDirection(localOffset);
 
-        float dx = Input.GetAxis("Mouse X");
-        transform.Rotate(Vector3.up, dx * yawSpeed * Time.deltaTime, Space.World);
+        // float dx = Input.GetAxis("Mouse X");
+        // transform.Rotate(Vector3.up, dx * yawSpeed * Time.deltaTime, Space.World);
 
-        float dy = Input.GetAxis("Mouse Y");
-        pitch -= dy * pitchSpeed * Time.deltaTime;
-        pitch = Mathf.Clamp(pitch, -60f, 10f);
-        barrel.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+        // float dy = Input.GetAxis("Mouse Y");
+        // pitch -= dy * pitchSpeed * Time.deltaTime;
+        // pitch = Mathf.Clamp(pitch, -60f, 10f);
+        // barrel.localRotation = Quaternion.Euler(pitch, 0f, 0f);
     }
 }
