@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PlayerSpawner playerSpawner;
     [SerializeField] private TimerService timerService;
+    [SerializeField] private GameStatsReporter statsReporter;
+    [SerializeField] private CommandProcessor commandProcessor;
 
     private CombinedGameStarter gameStarter;
     public static GameObject PlayerInstance { get; private set; }
@@ -15,17 +17,26 @@ public class GameManager : MonoBehaviour
     {
         gameStarter = GetComponent<CombinedGameStarter>();
         gameStarter.OnGameStart += InitializeGame;
+
+        if (commandProcessor != null)
+        commandProcessor.OnExitCommand += HandleGameOver;
     }
 
     void OnDestroy()
     {
         gameStarter.OnGameStart -= InitializeGame;
-    
+
         if (timerService != null)
             timerService.OnTimerFinished -= HandleGameOver;
-    
+
         if (TargetManager.Instance != null)
             TargetManager.Instance.OnAllTargetsKilled -= HandleGameOver;
+
+        if (commandProcessor != null)
+        {
+            commandProcessor.OnExitCommand -= HandleGameOver;
+        }
+
     }
     void InitializeGame()
     {
@@ -35,6 +46,7 @@ public class GameManager : MonoBehaviour
         spawnManager.SpawnInitialTargets();
         timerService.OnTimerFinished += HandleGameOver;
         TargetManager.Instance.OnAllTargetsKilled += HandleGameOver;
+
         timerService.StartTimer();
     }
 
@@ -49,5 +61,6 @@ public class GameManager : MonoBehaviour
         InputManager.Instance.DisableInput();
         Debug.Log("Game Over");
         timerService.StopTimer();
+        statsReporter.SendGameStats();
     }
 }
