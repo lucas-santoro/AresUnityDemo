@@ -17,4 +17,5 @@ private:
     std::ofstream file;
     std::string generateFilename();
     std::string currentTimestamp();
+    void createLogsDirectory();
 };
