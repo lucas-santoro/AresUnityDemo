@@ -9,6 +9,12 @@ public class TankController : MonoBehaviour
     {
         drive = GetComponent<IDrive>();
     }
+
+    public void Drive(float move, float turn)
+    {
+        if (!InputManager.Instance.InputEnabled) return;
+        drive.Drive(chassis, move, turn);
+    }
     
     void Update()
     {

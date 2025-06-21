@@ -8,24 +8,23 @@ public class TimerService : MonoBehaviour
 
     public event Action<float> OnTimerTick;
     public event Action OnTimerFinished;
-
-    private bool isRunning = false;
+    public bool IsRunning { get; private set; }
 
     public void StartTimer()
     {
-        isRunning = true;
+        IsRunning = true;
         StartCoroutine(RunTimer());
     }
 
     public void StopTimer()
     {
-        isRunning = false;
+        IsRunning = false;
     }
 
     private IEnumerator RunTimer()
     {
         float elapsed = 0f;
-        while (elapsed < duration && isRunning)
+        while (elapsed < duration && IsRunning)
         {
             elapsed += Time.deltaTime;
             float remaining = Mathf.Max(duration - elapsed, 0f);
@@ -33,9 +32,9 @@ public class TimerService : MonoBehaviour
             yield return null;
         }
 
-        if (isRunning)
+        if (IsRunning)
             OnTimerFinished?.Invoke();
 
-        isRunning = false;
+        IsRunning = false;
     }
 }

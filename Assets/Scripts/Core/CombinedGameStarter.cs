@@ -9,20 +9,19 @@ public class CombinedGameStarter : MonoBehaviour, IGameStarter
     [SerializeField] private GameObject menuCamera;
     [SerializeField] private GameObject uiRoot;
 
-    delegate void GameStartCallback();
-    [DllImport("AresGameInput")]
-    static extern void RegisterGameStartCallback(GameStartCallback cb);
+    // delegate void GameStartCallback();
+    // static extern void RegisterGameStartCallback(GameStartCallback cb);
 
     void Awake()
     {
-        try
-        {
-            RegisterGameStartCallback(OnNativeGameStart);
-        }
-        catch (DllNotFoundException)
-        {
-            Debug.Log("AresGameInput not found");
-        }
+        // try
+        // {
+        //     RegisterGameStartCallback(OnNativeGameStart);
+        // }
+        // catch (DllNotFoundException)
+        // {
+            
+        // }
     }
 
 

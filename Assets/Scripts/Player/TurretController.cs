@@ -20,6 +20,19 @@ public class TurretController : MonoBehaviour
         float initial = barrel.localEulerAngles.x;
         pitch = initial > 180f ? initial - 360f : initial;
     }
+    
+    public void Aim(float yawInput, float pitchInput)
+    {
+        if (!InputManager.Instance.InputEnabled) return;
+
+        transform.position = chassis.position + chassis.TransformDirection(localOffset);
+
+        transform.Rotate(Vector3.up, yawInput * yawSpeed * Time.deltaTime, Space.World);
+
+        pitch -= pitchInput * pitchSpeed * Time.deltaTime;
+        pitch = Mathf.Clamp(pitch, -60f, 10f);
+        barrel.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+    }
 
     void LateUpdate()
     {

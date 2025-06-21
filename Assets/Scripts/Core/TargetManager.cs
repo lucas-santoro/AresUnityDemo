@@ -7,6 +7,7 @@ public class TargetManager : MonoBehaviour
     public static TargetManager Instance { get; private set; }
     public event Action<int> OnAliveCountChanged;
     public event Action OnAllTargetsKilled;
+    public event Action OnTargetDestroyed;
 
     private int aliveCount;
 
@@ -26,6 +27,7 @@ public class TargetManager : MonoBehaviour
     {
         aliveCount--;
         OnAliveCountChanged?.Invoke(aliveCount);
+        OnTargetDestroyed?.Invoke();
 
         if (aliveCount <= 0)
         {

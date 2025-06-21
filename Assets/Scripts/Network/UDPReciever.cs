@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Collections.Concurrent;
 
 public class UDPReceiver : MonoBehaviour
 {
@@ -10,13 +11,16 @@ public class UDPReceiver : MonoBehaviour
     private Thread receiveThread;
     public int port = 9000;
 
+    private ConcurrentQueue<string> commandQueue = new ConcurrentQueue<string>();
+    [SerializeField] private CommandProcessor processor;
+
     void Start()
     {
         udpClient = new UdpClient(port);
         receiveThread = new Thread(ReceiveLoop);
         receiveThread.IsBackground = true;
         receiveThread.Start();
-        Debug.Log($"[UDP] Listening on port {port}");
+        Debug.Log("[udp] listening on port 9000");
     }
 
     void ReceiveLoop()
@@ -28,14 +32,22 @@ public class UDPReceiver : MonoBehaviour
             {
                 byte[] data = udpClient.Receive(ref remoteEP);
                 string message = Encoding.UTF8.GetString(data).Trim();
-                Debug.Log($"[UDP] Received: {message}");
-                // Aqui você pode invocar ações com base no comando
+                commandQueue.Enqueue(message);
             }
             catch (SocketException ex)
             {
-                Debug.LogError($"[UDP] SocketException: {ex.Message}");
+                Debug.LogError($"[udp] socket error: {ex.Message}");
                 break;
             }
+        }
+    }
+
+    void Update()
+    {
+        while (commandQueue.TryDequeue(out var cmd))
+        {
+            Debug.Log($"[udp] received: {cmd}");
+            processor?.ExecuteCommand(cmd);
         }
     }
 

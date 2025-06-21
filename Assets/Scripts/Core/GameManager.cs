@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TimerService timerService;
 
     private CombinedGameStarter gameStarter;
+    public static GameObject PlayerInstance { get; private set; }
 
     void Awake()
     {
@@ -19,15 +20,18 @@ public class GameManager : MonoBehaviour
     void OnDestroy()
     {
         gameStarter.OnGameStart -= InitializeGame;
-        timerService.OnTimerFinished -= HandleGameOver;
-        TargetManager.Instance.OnAllTargetsKilled -= HandleGameOver;
+    
+        if (timerService != null)
+            timerService.OnTimerFinished -= HandleGameOver;
+    
+        if (TargetManager.Instance != null)
+            TargetManager.Instance.OnAllTargetsKilled -= HandleGameOver;
     }
-
     void InitializeGame()
     {
         InputManager.Instance.EnableInput();
         SpawnGround();
-        playerSpawner.SpawnPlayer();
+        PlayerInstance = playerSpawner.SpawnPlayer();
         spawnManager.SpawnInitialTargets();
         timerService.OnTimerFinished += HandleGameOver;
         TargetManager.Instance.OnAllTargetsKilled += HandleGameOver;
