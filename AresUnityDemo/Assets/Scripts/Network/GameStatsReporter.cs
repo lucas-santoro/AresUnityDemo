@@ -39,7 +39,7 @@ public class GameStatsReporter : MonoBehaviour
 
     public void SendGameStats()
     {
-        string message = $"GAME_OVER|{elapsedTime:F1}|{shotsFired}|{targetsHit}";
+        string message = $"GAME_OVER | {elapsedTime:F1} seconds | {shotsFired} shots fired | {targetsHit} targets left";
         byte[] data = Encoding.UTF8.GetBytes(message);
         udpClient.Send(data, data.Length, targetIP, targetPort);
     }
