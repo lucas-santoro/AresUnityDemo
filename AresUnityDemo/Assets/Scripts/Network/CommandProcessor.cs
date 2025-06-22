@@ -24,35 +24,35 @@ public class CommandProcessor : MonoBehaviour
 
             case "MOVE_FORWARD":
                 if (isGameStarted)
-                    tankController?.Drive(1f, 0f);
+                    tankController?.Drive(30f, 0f);
                 turretController?.Aim(0f, 0f);
                 break;
             case "MOVE_BACKWARD":
                 if (isGameStarted)
-                    tankController?.Drive(-1f, 0f);
+                    tankController?.Drive(-30f, 0f);
                 turretController?.Aim(0f, 0f);
                 break;
             case "MOVE_LEFT":
                 if (isGameStarted)
-                    tankController?.Drive(0f, -1f);
+                    tankController?.Drive(0f, -30f);
                 turretController?.Aim(0f, 0f);
                 break;
             case "MOVE_RIGHT":
                 if (isGameStarted)
-                    tankController?.Drive(0f, 1f);
+                    tankController?.Drive(0f, 30f);
                 turretController?.Aim(0f, 0f);
                 break;
             case "ROTATE_LEFT":
-                if (isGameStarted) turretController?.Aim(-1f, 0f);
+                if (isGameStarted) turretController?.Aim(-30f, 0f);
                 break;
             case "ROTATE_RIGHT":
-                if (isGameStarted) turretController?.Aim(1f, 0f);
+                if (isGameStarted) turretController?.Aim(30f, 0f);
                 break;
             case "ELEVATE_UP":
-                if (isGameStarted) turretController?.Aim(0f, 1f);
+                if (isGameStarted) turretController?.Aim(0f, 30f);
                 break;
             case "ELEVATE_DOWN":
-                if (isGameStarted) turretController?.Aim(0f, -1f);
+                if (isGameStarted) turretController?.Aim(0f, -30f);
                 break;
             case "FIRE":
                 if (isGameStarted) turretShooter?.Fire();
